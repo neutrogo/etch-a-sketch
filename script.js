@@ -1,8 +1,24 @@
 const body = document.body;
-const button = document.createElement('button');
-button.innerText = 'Change grid size';
+
+const gridButton = document.createElement('button');
+const colorButton = document.createElement('button');
+const gradientButton = document.createElement('button');
+
+let desiredButton = "";
+
+gridButton.innerText = 'Change grid size';
+colorButton.innerText = 'Draw with Colors';
+gradientButton.innerText = 'Draw with a gradient';
+
+
+gridButton.classList.add('grid-button');
+colorButton.classList.add('color-button');
+gradientButton.classList.add('grad-button');
+
 const container = document.querySelector('.container');
-body.insertBefore(button, container);
+body.insertBefore(gridButton, container);
+body.insertBefore(colorButton, container);
+body.insertBefore(gradientButton, container);
 
 for (let i=0; i < (16*16); i++) {
     let square = document.createElement('div');
@@ -14,10 +30,22 @@ container.style.gridTemplateColumns = "repeat(16, auto)"
 
 setGridDraw();
 
-button.addEventListener('click', changeGridSize);
+gridButton.addEventListener('click', changeGridSize);
+colorButton.addEventListener('click', setGridDraw);
+gradientButton.addEventListener('click', setGridDraw);
 
 function colorSquare(e) {
-    e.currentTarget.style.background = "black";
+    if(desiredButton === 'color-button') {
+        let r = Math.floor(Math.random() * 256).toString();
+        let g = Math.floor(Math.random() * 256).toString();
+        let b = Math.floor(Math.random() * 256).toString();
+        let a = (1).toString();
+        e.currentTarget.style.background =
+            "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
+    }
+    else {
+        e.currentTarget.style.background = "black";
+    }
 }
 
 function changeGridSize() {
@@ -41,7 +69,11 @@ function setGrid(size) {
     setGridDraw();
 }
 
-function setGridDraw() {
+function setGridDraw(e) {
     let newGrid = document.querySelectorAll('.grid-item');
+    // distinguish if color or gradient has already been picked
+    if (e !== undefined) {
+        desiredButton = e.currentTarget.classList[0];
+    }
     newGrid.forEach((square) => (square.addEventListener('mouseover', colorSquare)));
 }
