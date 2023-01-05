@@ -1,0 +1,20 @@
+button {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: blue;
+}
+
+.container {
+    display: grid;
+    height: 1000px;
+    width: 1000px;
+}
+
+.grid-item {
+    display: flex;
+    border-style: solid;
+    border-width: 1px;
+}
