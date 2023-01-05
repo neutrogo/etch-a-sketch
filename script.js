@@ -17,9 +17,13 @@ colorButton.classList.add('color-button');
 gradientButton.classList.add('grad-button');
 
 const container = document.querySelector('.container');
-body.insertBefore(gridButton, container);
-body.insertBefore(colorButton, container);
-body.insertBefore(gradientButton, container);
+const optionBar = document.createElement('div');
+optionBar.classList.add('options');
+optionBar.appendChild(gridButton);
+optionBar.appendChild(colorButton);
+optionBar.appendChild(gradientButton);
+body.insertBefore(optionBar, container);
+
 
 for (let i=0; i < (16*16); i++) {
     let square = document.createElement('div');
@@ -80,7 +84,6 @@ function setGrid(size) {
 
 function setGridDraw(e) {
     let newGrid = document.querySelectorAll('.grid-item');
-    // distinguish if color or gradient has already been picked
     if (e !== undefined) {
         desiredButton = e.currentTarget.classList[0];
     }
